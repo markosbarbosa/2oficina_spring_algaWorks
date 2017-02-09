@@ -7,7 +7,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;
 
 @Entity
@@ -17,11 +19,14 @@ public class Vinho {
 	@GeneratedValue
 	private Long codigo;
 	
+	@NotBlank
 	private String nome;
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private TipoVinho tipo;
 	
+	@NotNull
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
 	
