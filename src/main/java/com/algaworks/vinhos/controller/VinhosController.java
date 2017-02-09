@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.vinhos.model.TipoVinho;
 import com.algaworks.vinhos.model.Vinho;
@@ -29,14 +30,14 @@ public class VinhosController {
 	}
 
 	@PostMapping("/vinhos/novo")
-	public ModelAndView salvar(@Valid Vinho vinho, BindingResult result) {
+	public ModelAndView salvar(@Valid Vinho vinho, BindingResult result, RedirectAttributes attributes) {
 
 		if(result.hasErrors()) {
 			return novo(vinho);
 		}
 		
 		vinhos.save(vinho);
-		
+		attributes.addFlashAttribute("mensagem", "Vinho salvo com sucesso!");
 		return new ModelAndView("redirect:/vinhos/novo");
 		
 	}
