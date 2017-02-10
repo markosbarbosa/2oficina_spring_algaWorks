@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +30,7 @@ public class VinhosController {
 	public ModelAndView novo(Vinho vinho) {
 		
 		ModelAndView mv = new ModelAndView("vinho/cadastro-vinho");
+		mv.addObject(vinho);
 		mv.addObject("tipos", TipoVinho.values());
 		
 		return mv;
@@ -56,6 +58,12 @@ public class VinhosController {
 		));
 		
 		return mv;
+	}
+	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable Long codigo) {
+		Vinho vinho = vinhos.findOne(codigo);
+		return novo(vinho);
 	}
 	
 }
